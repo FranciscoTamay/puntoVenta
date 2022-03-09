@@ -20,6 +20,7 @@ new Vue({
 		cantidades:[1,1,1,1,1,1,1,1,1,1],
 		cant:1,
 		auxSubtotal:0,
+		pagara_con:0,
 
 
 	},
@@ -34,16 +35,36 @@ new Vue({
 	methods:{
 
 		buscarProducto:function(){
+			var encontrado=0;
 			if(this.sku)
 			{
 			var producto = {};
+
+			//rutina de busqueda
+			for (var i = 0; i < this.ventas.length; i++) {
+				if (this.sku===this.ventas[i].sku) {
+					encontrado=1;
+					this.ventas[i].cantidad++;
+					this.cantidades[i]++;
+					this.sku='';
+					break;
+				}
+				//this.ventas[i]
+			}
+
+			//fin de la rutina de busqueda
+
+			//Inicio del GET de AJAX
+
+			if (encontrado===0)
 			this.$http.get(apiVenta + '/' + this.sku).then(function(json){
 				producto = {
 					sku:json.data.sku,
 					nombre:json.data.nombre,
 					precio:json.data.precio,
 					cantidad:1,
-					total:json.data.precio
+					total:json.data.precio,
+					foto:'prods/' + json.data.foto,
 				};
 
 				
@@ -52,8 +73,17 @@ new Vue({
 				this.sku='';
 
 			});
-		  }	
-		}
+
+			//Fin de GET de AJAX
+		  }
+
+		},
+
+		//Inicio del modal 
+
+		mostrarCobro:function(){
+			$('#modalCobro').modal('show');
+		},
 
 
 	},
@@ -109,6 +139,13 @@ new Vue({
 
  			return acum;
  		},
+
+ 		cambio(){
+ 			var camb=0; 
+ 			camb=this.pagara_con - this.granTotal;
+ 			camb=camb.toFixed(1);
+ 			return camb;
+ 		}
  	},
 	
 

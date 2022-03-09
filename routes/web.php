@@ -21,6 +21,9 @@ Route::get('/', function () {
 //     return view('master');
 // });
 
+//nombre que le asignas a la pag, nombre del blade.php
 Route::view('ventas','ventas');
+Route::view('productos','tablaProductos');
 
 Route::apiResource('apiProducto','ProductoController');
+
