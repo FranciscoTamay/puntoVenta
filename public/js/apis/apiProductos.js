@@ -25,6 +25,7 @@ new Vue({
 		producto:'',
 		frase:'Hola Mundo Desde la UTC',
 		alineacion:'center',
+		find:'',
 	},
 
 	//Al crear la pagina se iniciara 
@@ -122,6 +123,16 @@ new Vue({
 	
 }, 
 // fin de los metodos
+computed:{
+
+	filtroProd:function(){
+		return this.productos.filter((producto)=>{
+			return producto.nombre.toLowerCase().match(this.find.toLowerCase().trim())
+		});
+	},
+
+
+},
 
 });
 

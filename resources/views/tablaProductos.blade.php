@@ -11,6 +11,9 @@
             <div class="card card-warning">
                 <div class="card-header">
                     <h4>CRUD Productos <button class="btn btn-primary btn-sm" @click="showModal()"><i class="fas fa-plus fa-lg"></i></button></h4>
+                    <div class="col-md-6">
+                        <input type="text" placeholder="Escriba el nombre del producto"  class="form-control" v-model="find">
+                    </div>
                 </div>
                 <div class="card-body">
         <!-- INICIO DE LA TABLA -->
@@ -25,7 +28,7 @@
                 </thead>
 
                 <tbody>
-                       <tr v-for="producto in productos">
+                       <tr v-for="producto in filtroProd">
                                 <td>@{{producto.sku}}</td>
                                 <td>@{{producto.nombre}}</td>
                                 <td>@{{producto.precio}}</td>
