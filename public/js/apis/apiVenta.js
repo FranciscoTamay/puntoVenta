@@ -21,6 +21,7 @@ new Vue({
 		cant:1,
 		auxSubtotal:0,
 		pagara_con:0,
+		folio:'',
 
 
 	},
@@ -28,7 +29,7 @@ new Vue({
 
 	//se ejecuta automaticamente cuando la pagina se crea
 	created:function(){
-		
+		this.foliar();
 	},
  	
  	//INICIO DE METHODS
@@ -83,6 +84,40 @@ new Vue({
 
 		mostrarCobro:function(){
 			$('#modalCobro').modal('show');
+		},
+
+		foliar:function(){ 
+			this.folio="VNT-" + moment().format('YYMMDDhmmss');
+		},
+
+		vender:function(){
+			var unaVenta={};
+			var deta=[];
+
+
+			//Preparamos un JSON con los detalles
+			for (var i = 0; i < this.ventas.length; i++) {
+					deta.push(
+					{sku:this.ventas[i].sku,
+						folio:this.folio,
+						cantidad:this.ventas[i].cantidad,
+						precio:this.ventas[i].precio,
+						total:this.ventas[i].total
+					}
+					);
+			}
+			//Fin del JSON de los detalles
+			unaVenta={
+				folio:this.folio,
+				fecha:moment().format('YYYY-MM-DD'),
+				num_articulos:this.noArticulos,
+				subtotal:this.subTotal,
+				iva:this.iva,
+				total:this.granTotal,
+				detalles:deta,
+			};
+			$('#modalCobro').modal('hide');
+			console.log(unaVenta);
 		},
 
 

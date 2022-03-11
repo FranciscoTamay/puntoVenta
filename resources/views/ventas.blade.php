@@ -24,6 +24,8 @@
 
  				<div class="col-md-12">
 
+ 					<p align="right"><h2>Folio: @{{folio}}</h2></p>
+
  					<table class="table table-bordered">
  						<thead>
  							<th style="background: #ffff66;">SKU</th>
@@ -159,7 +161,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary">Guardar</button>
+        <button type="button" class="btn btn-primary" @click="vender()">Finalizar</button>
       </div>
     </div>
   </div>
@@ -176,6 +178,7 @@
 @push('scripts')
 	<script type="text/javascript" src="{{asset('js/apis/apiVenta.js')}}"></script>
 	<script type="text/javascript" src="{{asset('js/vue-resource.js')}}"></script>
+	<script type="text/javascript" src="{{asset('js/moment-with-locales.min.js')}}"></script>
 	@endpush
 
 	<input type="hidden" name="route" value="{{url('/')}}">
