@@ -5,13 +5,14 @@
  	<div id="apiVenta">
  		<div class="container">
  			<div class="row">
- 				<div class="col-md-4">
+ 				<div class="col-md-6">
 					<div class="input-group mb-3">
   						<input type="text" class="form-control" placeholder="Introduzca el codigo del producto" aria-label="Recipient's username" aria-describedby="basic-addon2" v-model="sku" v-on:keyup.enter="buscarProducto()">
   							<div class="input-group-append">
     					<button class="btn btn-primary" type="button" @click="buscarProducto()"> <i class="fas fa-search"></i> </button >
-    					<button class="btn btn-success " @click="mostrarCobro">Cobrar</button>
+    					<button class="btn btn-success " type="button" @click="mostrarCobro()">Cobrar</button>
   							</div>
+  							<button class="btn btn-secondary" type="button" @click="encontrarPros()">Search Prod</button>
 					</div>
 				</div>
  					
@@ -109,7 +110,9 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Asistente de Cobro</h5>
+        <h5 class="modal-title" id="exampleModalLabel" v-if="encProd == false">Asistente de Cobro</h5>
+        <h5 class="modal-title" id="exampleModalLabel" v-if="encProd == true">Asistente para Encontrar su Producto</h5>
+
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -118,22 +121,26 @@
         <form>
           <div class="form-row">
           	<div class="col-md-2">
-          		<label> A PAGAR: </label>
+          		<label v-if="encProd == false"> A PAGAR: </label>
+          		<label v-if="encProd == true">Nombre de Producto: </label>
           	</div>
           	<div class="col-md-6">
-          		<input type="number" class="form-control" disabled :value="granTotal">
+          		<input type="number" class="form-control" disabled :value="granTotal" v-if="encProd == false">
+          		<input type="text" class="form-control" placeholder="Escriba el nombre del producto" v-model="nombre" v-if="encProd == true">
           	</div><br>
 
           	  </div>
 
           	<div class="form-row">
           		<div class="col-md-2">
-          			<label>PAGA CON: </label>
+          			<label v-if="encProd == false">PAGA CON: </label>
+          			<label hidden="" v-if="encProd == true"> </label>
           			
           		</div>
 
           		<div class="col-md-6">
-          			<input type="number" class="form-control" v-model="pagara_con">
+          			<input type="number" class="form-control" v-model="pagara_con" v-if="encProd == false">
+          			<input hidden="" type="number" class="form-control" v-if="encProd == true">
           			
           		</div><br>
 
@@ -141,11 +148,13 @@
 
           		<div class="form-row">
           			<div class="col-md-2">
-          				<label>SU CAMBIO ES</label>
+          				<label v-if="encProd == false">SU CAMBIO ES</label>
+          				<label hidden="" v-if="encProd == true"> </label>
           			</div>
 
           			<div class="col-md-6">
-          				<input type="number" class="form-control" disabled :value="cambio">
+          				<input type="number" class="form-control" disabled :value="cambio" v-if="encProd == false">
+          				<input hidden="" type="number" class="form-control" v-if="encProd == true">
           			</div>
           			
           		</div>

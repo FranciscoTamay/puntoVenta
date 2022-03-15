@@ -22,6 +22,9 @@ new Vue({
 		auxSubtotal:0,
 		pagara_con:0,
 		folio:'',
+		encProd:true,
+		nombre:'',
+
 
 
 	},
@@ -83,6 +86,8 @@ new Vue({
 		//Inicio del modal 
 
 		mostrarCobro:function(){
+			this.encProd=false;
+			this.nombre="";
 			$('#modalCobro').modal('show');
 		},
 
@@ -118,6 +123,14 @@ new Vue({
 			};
 			$('#modalCobro').modal('hide');
 			console.log(unaVenta);
+		},
+
+		encontrarPros:function(){
+			this.encProd=true;
+			this.nombre='';
+
+			$('#modalCobro').modal('show');
+
 		},
 
 
